@@ -2,7 +2,7 @@
  * =================================LICENSE_START==================================
  * java-maven-testcontainers-sfn-example
  * ====================================SECTION=====================================
- * Copyright (C) 2024 devvitrfarias
+ * Copyright (C) 2024 devvitorfarias
  * ====================================SECTION=====================================
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,32 @@
  * limitations under the License.
  * ==================================LICENSE_END===================================
  */
-package io.devvitrfarias.example.testcontainers.sfn.util;
+package io.devvitorfarias.example.testcontainers.sfn.activity;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
-public class ExceptionsTest {
+import io.aleph0.example.testcontainers.sfn.activity.HelloActivity;
+
+public class HelloActivityTest {
   @Test
-  public void givenException_whenPrintStackTraceToString_thenGetExpectedValue() {
-    final Exception e = new Exception("Test exception");
+  public void givenDefaultSalutation_whenHandleTask_thenUseDefaultSalutation() throws IOException {
+    final String name = "Steve";
 
-    final String stackTrace = Exceptions.printStackTraceToString(e);
+    final String greeting = new HelloActivity().handleTask("{\"name\":\"%s\"}".formatted(name));
 
-    assertTrue(stackTrace.contains("Test exception"));
+    assertEquals("{\"greeting\":\"%s, %s!\"}".formatted("Hello", name), greeting);
+  }
+
+  @Test
+  public void givenCustomSalutation_whenHandleTask_thenUseCustomSalutation() throws IOException {
+    final String salutation = "Yo";
+    final String name = "Steve";
+
+    final String greeting =
+        new HelloActivity(salutation).handleTask("{\"name\":\"%s\"}".formatted(name));
+
+    assertEquals("{\"greeting\":\"%s, %s!\"}".formatted(salutation, name), greeting);
   }
 }
