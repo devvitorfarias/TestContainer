@@ -33,6 +33,8 @@ import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
+
+import io.devvitorfarias.example.testcontainers.sfn.ActivityManager;
 import io.devvitorfarias.example.testcontainers.sfn.activity.HelloActivity;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
